@@ -4,7 +4,9 @@ import numpy as np
 def input_keystroke() -> TBool:
     return input("Press enter to move to the next value") == "1"
 
-class DDS(EnvExperiment):
+class tutorial_urukulFreqScan(EnvExperiment):
+    """Tutorial: Ururkul Amplitdue Scan"""
+
     def build(self):
         self.setattr_device("core")
 

@@ -4,7 +4,8 @@ from artiq.experiment import*
 def input_led_state() -> TBool: #This defines a function that returns a boolian variable. The input is read from the command line and returned.
     return input("Enter desired LED state: ") == "1"
 	
-class LEDKeyedInput(EnvExperiment):
+class tutorial_LEDKeyedInput(EnvExperiment):
+    """Tutorial: LED keyed input"""
 	def build(self):
         #This sets the device drivers as attributes and adds the key to the kernel invarients (things stored on the FPGA). You have to do this to use the device 
 		self.setattr_device("core")

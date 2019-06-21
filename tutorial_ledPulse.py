@@ -1,6 +1,7 @@
 from artiq.experiment import*
 
-class LEDrealTime(EnvExperiment):
+class tutorial_LEDrealTime(EnvExperiment):
+    """Tutuorial: LED real time"""
     def build(self): #Adds the device drivers as attributes and adds the keys to the kernel invarients
         self.setattr_device("core")
         self.setattr_device("led0")

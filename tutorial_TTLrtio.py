@@ -2,7 +2,8 @@ from artiq.experiment import *
 
 
 
-class Tutorial(EnvExperiment):
+class tutorial_TTLrtio(EnvExperiment):
+    """Tutorial: TTL rtio"""
     def build(self):
         j = 22
         self.setattr_device("core")

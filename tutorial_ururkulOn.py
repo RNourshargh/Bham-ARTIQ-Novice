@@ -1,8 +1,8 @@
 from artiq.experiment import*
-import numpy as np
 
 
-class DDS(EnvExperiment):
+class tutorial_UrukulOn(EnvExperiment):
+    """Tutorial: Ururkul On"""
     def build(self):
         self.setattr_device("core")
 
@@ -47,32 +47,26 @@ class DDS(EnvExperiment):
 
         delay(10 * ms)
         
-        """Adjustable parameters"""
-        amps_coarse=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
-        amps_fine = [0.7,0.75,0.8,0.85,0.9,0.95]
-        freq = 150
-        attenuation= 10.0
+        a = self.urukul0_ch1.frequency_to_ftw(100*MHz)
+        b = self.urukul0_ch1.frequency_to_ftw(200*MHz)
+        
+        print("FTW for 100MHz is:",a)
+        print("FTW for 200MHz is:",b)
+        
+        phase_mu = 0 
+        pow_pi2 = self.urukul0_ch1.turns_to_pow(0.25)
+        print("POW for pi phase is:", pow_pi2)
         
         
-        self.urukul0_ch0.set_att(attenuation)
-        self.urukul0_ch1.set_att(attenuation)
+        self.urukul0_ch0.set(200 * MHz,amplitude=0.9)
+        self.urukul0_ch0.set_mu(2*a)
+        self.urukul0_ch0.set_att(0.)
         
-        for amp in amps_coarse:
-            self.urukul0_ch0.set(freq * MHz,amplitude=amp)
-            self.urukul0_ch1.set(freq * MHz,amplitude=amp)
-            self.urukul0_ch0.sw.on()
-            self.urukul0_ch1.sw.on()
-            delay(7 * s)
-            self.urukul0_ch0.sw.off()
-            self.urukul0_ch1.sw.off()
-            delay(1*s)
-            
-        for amp in amps_fine:
-            self.urukul0_ch0.set(freq * MHz,amplitude=amp)
-            self.urukul0_ch1.set(freq * MHz,amplitude=amp)
-            self.urukul0_ch0.sw.on()
-            self.urukul0_ch1.sw.on()
-            delay(7 * s)
-            self.urukul0_ch0.sw.off()
-            self.urukul0_ch1.sw.off()
-            delay(1*s)
+        self.urukul0_ch1.set(100 * MHz, phase =0.0, amplitude=0.9)
+        #self.urukul0_ch1.set_mu(a,phase_mu+pow_pi2)
+        self.urukul0_ch1.set_att(0.)
+        
+        self.urukul0_ch0.sw.on()
+        self.urukul0_ch1.sw.on()
+        
+       
