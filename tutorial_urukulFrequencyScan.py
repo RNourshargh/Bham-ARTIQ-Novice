@@ -5,7 +5,7 @@ def input_keystroke() -> TBool:
     return input("Press enter to move to the next value") == "1"
 
 class tutorial_urukulFreqScan(EnvExperiment):
-    """Tutorial: Ururkul Amplitdue Scan"""
+    """Tutorial: Ururkul Frequency Scan"""
 
     def build(self):
         self.setattr_device("core")
