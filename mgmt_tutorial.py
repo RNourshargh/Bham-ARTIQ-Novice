@@ -4,7 +4,8 @@ from artiq.experiment import *
 class MgmtTutorial(EnvExperiment):
     """Management tutorial"""
     def build(self):
-        pass  # no devices used
+        self.setattr_argument("count", NumberValue(ndecimals=0, step=1))
 
     def run(self):
-        print("Hello World")
+        for i in range(self.count):
+            print("Hello World", i)
