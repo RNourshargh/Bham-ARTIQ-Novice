@@ -61,7 +61,7 @@ class KasliTester(EnvExperiment):
         
         for i in range(n_channels):              #loops for each sampler channel
             sampler.set_gain_mu(i, 0)   #sets each channel's gain to 0db               
-        smp = [0.0]*n_channels          #creates list of 8 floating point variables
+        smp = [0]*n_channels          #creates list of 8 floating point variables
         
         self.set_dataset("samples", np.full(2000, np.nan), broadcast=True)
         
