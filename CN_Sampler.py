@@ -5,6 +5,7 @@
 import sys
 import os
 import select
+import numpy as np
 
 from artiq.experiment import *
 from artiq.coredevice.ad9910 import AD9910
@@ -16,10 +17,6 @@ if os.name == "nt":
 class KasliTester(EnvExperiment):
     """Sampler 2kHz"""
     def build(self):
-        # hack to detect artiq_run
-        if self.get_device("scheduler").__class__.__name__ != "DummyScheduler":
-            raise NotImplementedError(
-                "must be run with artiq_run to support keyboard interaction")
 
         self.setattr_device("core")
 
@@ -59,9 +56,6 @@ class KasliTester(EnvExperiment):
         self.core.break_realtime()      #Time break to avoid underflow condition
         sampler.init()                  #initialises sampler
         
-        storage = [0.0]*200
-        
-        
         n_channels = 8                  #sets number of channels to read off of
                                         #change this number to alter the nummber of channels being read from          
         
@@ -69,11 +63,12 @@ class KasliTester(EnvExperiment):
             sampler.set_gain_mu(i, 0)   #sets each channel's gain to 0db               
         smp = [0.0]*n_channels          #creates list of 8 floating point variables
         
+        self.set_dataset("samples", np.full(2000, np.nan), broadcast=True)
         
-        for n in range(200):
-            delay(500*us)                       #shorter than 500us delays were causing underflow
-            sampler.sample(smp)                 #runs sampler and saves to list 
-            self.mutate_dataset(samples,n,smp[0])
+        for n in range(2000):
+            delay(50*ms)                       #shorter than 500us delays were causing underflow
+            sampler.sample_mu(smp)                 #runs sampler and saves to list 
+            self.mutate_dataset("samples",n,smp[0])
 
 
     def run_sampler(self):                       
