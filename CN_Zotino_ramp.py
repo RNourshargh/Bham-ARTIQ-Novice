@@ -21,12 +21,12 @@ class ZotinoOutputs(EnvExperiment):
                 
                 delay(800*ns)                               #800ns delay minimum for 1 channel, 2us minimum for 2 channels
                 
-    def test_zotinos(self):#
+    def test_zotinos(self):
         n_steps = 100                                       #number of steps into which ramp will be broken
         voltages_mu = [((1<<16)//n_steps)*i                 #defines voltage ramp in machine units, 0.2V steps from -10V to 10V
             for i in range(n_steps)]
            
-        self.set_zotino_voltages(self.zotino0, voltages_mu)    #runs set voltages code
+        self.set_zotino_voltages(self.zotino0, voltages_mu)     #runs set voltages code on zotino0
 
     def run(self):
         self.core.reset()
