@@ -17,9 +17,9 @@ class Test(EnvExperiment):
         
         self.sample()                                   #runs sample function
         data = np.array(self.queue)                     #generates array in current context and populates it with queued values
-        
+        self.set_dataset("samples", np.full(1024, np.nan), broadcast=True)
         for i in range(1024):
-            self.mutate_dataset("samples",i,data[0][i])
+            self.mutate_dataset("samples",i,data[0][i][0])
             #print(data[0][i])                           #prints data from channel 0 
             
 
